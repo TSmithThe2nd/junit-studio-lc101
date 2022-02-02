@@ -1,6 +1,8 @@
 package main;
 
 
+import java.util.Stack;
+
 public class BalancedBrackets {
     /**
      * The function BalancedBrackets should return true if and only if
@@ -22,14 +24,16 @@ public class BalancedBrackets {
      * @return true if balanced, false otherwise
      */
     public static boolean hasBalancedBrackets(String str) {
-        int brackets = 0;
+        Stack<Character> stack  = new Stack<Character>();
         for (char ch : str.toCharArray()) {
             if (ch == '[') {
-                brackets++;
+                stack.push(ch);
             } else if (ch == ']') {
-                brackets--;
+                if(stack.isEmpty() || stack.pop() != '[') {
+                    return false;
+                }
             }
         }
-        return brackets == 0;
+        return stack.isEmpty();
     }
 }
